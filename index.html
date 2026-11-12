@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صور فهد للضحك</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        header {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4rem;
+            background: linear-gradient(45deg, #d4af37, #ffdf00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 10px 30px rgba(212, 175, 55, 0.2);
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        p.subtitle {
+            color: #888;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 50px 20px;
+            max-width: 1200px;
+        }
+
+        .card {
+            position: relative;
+            width: 320px;
+            height: 450px;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            background: #111;
+            border-radius: 20px;
+            border: 1px solid #333;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.1);
+            position: relative;
+            pointer-events: none;
+        }
+
+        .card-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover .card-inner img {
+            opacity: 1;
+        }
+
+        .card-inner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(0deg, #0a0a0a 10%, transparent 100%);
+        }
+
+        .card-text {
+            position: absolute;
+            bottom: 25px;
+            left: 20px;
+            right: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            color: #d4af37;
+            z-index: 2;
+            transform: translateZ(60px);
+            font-weight: 900;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.9);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>صور فهد للضحك</h1>
+        <p class="subtitle">أفخم معرض لعدونا اللدود 💀</p>
+    </header>
+
+    <div class="gallery">
+        <!-- الكرت الأول (صورة فهد من الرابط المباشر) -->
+        <div class="card">
+            <div class="card-inner">
+                <img src="https://i.postimg.cc/3w28pbk1/fahad.webp" alt="صورة فهد">
+                <div class="card-text">هذا كان قصدي 🤡</div>
+            </div>
+        </div>
+
+        <!-- الكرت الثاني -->
+        <div class="card">
+            <div class="card-inner">
+                <img src="https://via.placeholder.com/320x450/111111/d4af37?text=ضيف+صورة+ثانية" alt="صورة 2">
+                <div class="card-text">بدون تعليق</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -15;
+                const rotateY = ((x - centerX) / centerX) * 15;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+                card.style.transition = 'none';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                card.style.transition = 'transform 0.5s ease-out';
+            });
+            
+            card.addEventListener('mouseenter', () => {
+                card.style.transition = 'transform 0.1s ease-out';
+            });
+        });
+    </script>
+</body>
+</html>
